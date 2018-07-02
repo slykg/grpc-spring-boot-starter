@@ -20,22 +20,9 @@ Support keepalive
 
 ### gRPC server
 
-To add a dependency using Maven, use the following:
-
 ````
-<dependency>
-  <groupId>net.devh</groupId>
-  <artifactId>grpc-server-spring-boot-starter</artifactId>
-  <version>1.4.1.RELEASE</version>
-</dependency>
-````
-
-To add a dependency using Gradle:
-
-````
-dependencies {
-  compile 'net.devh:grpc-server-spring-boot-starter:1.4.1.RELEASE'
-}
+Not yet released on any repo. For internal use only. If needed, checkout code and package it yourself.
+Refer to examples on how to use it.
 ````
 
 Annotate your server interface implementation(s) with ``@GrpcService``
@@ -52,23 +39,9 @@ public class GrpcServerService extends GreeterGrpc.GreeterImplBase {
 }
 ````
 ### gRPC client
-
-To add a dependency using Maven, use the following:
-
 ````
-<dependency>
-  <groupId>net.devh</groupId>
-  <artifactId>grpc-client-spring-boot-starter</artifactId>
-  <version>1.4.1.RELEASE</version>
-</dependency>
-````
-
-To add a dependency using Gradle:
-
-````
-dependencies {
-  compile 'net.devh:grpc-client-spring-boot-starter:1.4.1.RELEASE'
-}
+Not yet released on any repo. For internal use only. If needed, checkout code and package it yourself.
+Refer to examples on how to use it.
 ````
 
 Use ``@GrpcClient("gRPC server name")`` annotation or ``grpcChannelFactory.createChannel("gRPC server name")`` to get Channel
