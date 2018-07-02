@@ -18,26 +18,15 @@ Java技术交流群：294712648 <a target="_blank" href="http://shang.qq.com/wpa
 
 支持 keepalive
 
+Support spring boot 2.0.
+
 ## 使用方式
 
 ### gRPC 服务端
 
-添加依赖如果使用的是Maven
-
 ````
-<dependency>
-  <groupId>net.devh</groupId>
-  <artifactId>grpc-server-spring-boot-starter</artifactId>
-  <version>1.4.1.RELEASE</version>
-</dependency>
-````
-
-添加依赖如果使用的是Gradle
-
-````
-dependencies {
-  compile 'net.devh:grpc-server-spring-boot-starter:1.4.1.RELEASE'
-}
+Not yet released on any repo. For internal use only. If needed, checkout code and package it yourself.
+Refer to examples on how to use it.
 ````
 
 实现 Grpc 生成的接口，并使用 ``@GrpcService`` 注解
@@ -64,22 +53,9 @@ grpc.server.address=0.0.0.0
 
 ### gRPC 客户端
 
-添加依赖如果使用的是Maven
-
 ````
-<dependency>
-  <groupId>net.devh</groupId>
-  <artifactId>grpc-client-spring-boot-starter</artifactId>
-  <version>1.4.1.RELEASE</version>
-</dependency>
-````
-
-添加依赖如果使用的是Gradle
-
-````
-dependencies {
-  compile 'net.devh:grpc-client-spring-boot-starter:1.4.1.RELEASE'
-}
+Not yet released on any repo. For internal use only. If needed, checkout code and package it yourself.
+Refer to examples on how to use it.
 ````
 
 使用 ``@GrpcClient`` 注解去设置 Channel 或者 也可以通过 ``GrpcChannelFactory``中的 ``createChannel`` 得到 Channel

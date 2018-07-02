@@ -30,14 +30,8 @@ public class AnnotationGrpcServiceDiscoverer implements ApplicationContextAware,
     private ApplicationContext applicationContext;
 
     @Override
-    public void setApplicationContext(ApplicationContext applicationContext)
-            throws BeansException {
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
-    }
-
-    public Collection<String> findGrpcServiceBeanNames() {
-        String[] beanNames = this.applicationContext.getBeanNamesForAnnotation(GrpcService.class);
-        return Arrays.asList(beanNames);
     }
 
     @Override
@@ -55,6 +49,12 @@ public class AnnotationGrpcServiceDiscoverer implements ApplicationContextAware,
             log.debug("Found gRPC service: " + serviceDefinition.getServiceDescriptor().getName() + ", bean: " + beanName + ", class: " + bindableService.getClass().getName());
         }
         return definitions;
+    }
+
+
+    private Collection<String> findGrpcServiceBeanNames() {
+        String[] beanNames = this.applicationContext.getBeanNamesForAnnotation(GrpcService.class);
+        return Arrays.asList(beanNames);
     }
 
     private ServerServiceDefinition bindInterceptors(ServerServiceDefinition serviceDefinition, GrpcService grpcServiceAnnotation, List<ServerInterceptor> globalInterceptorList) {

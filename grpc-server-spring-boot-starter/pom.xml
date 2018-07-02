@@ -10,13 +10,12 @@
   </parent>
 
   <artifactId>grpc-server-spring-boot-starter</artifactId>
-  <version>1.4.1.RELEASE</version>
 
   <dependencies>
     <dependency>
       <groupId>net.devh</groupId>
       <artifactId>grpc-server-spring-boot-autoconfigure</artifactId>
-      <version>1.4.1.RELEASE</version>
+      <version>${project.parent.version}</version>
     </dependency>
   </dependencies>
 

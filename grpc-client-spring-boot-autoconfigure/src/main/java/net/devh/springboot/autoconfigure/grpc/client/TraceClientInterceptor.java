@@ -1,8 +1,7 @@
 package net.devh.springboot.autoconfigure.grpc.client;
 
-import org.springframework.cloud.sleuth.Span;
-import org.springframework.cloud.sleuth.SpanInjector;
-import org.springframework.cloud.sleuth.Tracer;
+import brave.Span;
+import brave.Tracer;
 
 import io.grpc.CallOptions;
 import io.grpc.Channel;
@@ -25,11 +24,11 @@ import lombok.extern.slf4j.Slf4j;
 public class TraceClientInterceptor implements ClientInterceptor {
 
     private Tracer tracer;
-    private final SpanInjector<Metadata> spanInjector;
+    /*private final SpanInjector<Metadata> spanInjector;*/
 
-    public TraceClientInterceptor(Tracer tracer, SpanInjector<Metadata> spanInjector) {
+    public TraceClientInterceptor(Tracer tracer/*, SpanInjector<Metadata> spanInjector*/) {
         this.tracer = tracer;
-        this.spanInjector = spanInjector;
+        /* this.spanInjector = spanInjector; */
     }
 
     @Override
@@ -38,25 +37,31 @@ public class TraceClientInterceptor implements ClientInterceptor {
             @Override
             protected void checkedStart(ClientCall.Listener<RespT> responseListener, Metadata headers)
                     throws StatusException {
-                final Span span = tracer.createSpan("invoke gRPC:" + method.getFullMethodName());
-                spanInjector.inject(span, headers);
+                final Span span = tracer.nextSpan().name("invoke gRPC:" + method.getFullMethodName()).start();
+//                spanInjector.inject(span, headers);
                 Listener<RespT> tracingResponseListener = new ForwardingClientCallListener
                         .SimpleForwardingClientCallListener<RespT>(responseListener) {
                     @Override
                     public void onReady() {
-                        span.logEvent(Span.CLIENT_SEND);
+//                        span.logEvent(Span.CLIENT_SEND);
                         super.onReady();
                     }
 
                     @Override
                     public void onClose(Status status, Metadata trailers) {
-                        span.logEvent(Span.CLIENT_RECV);
-                        if (status.isOk()) {
-                            log.debug("Call finish success");
-                        } else {
-                            log.warn("Call finish failed", status.getDescription());
+                        try (Tracer.SpanInScope ws = tracer.withSpanInScope(span.start())) {
+                            /*
+                            * span.logEvent(Span.CLIENT_RECV); */
+                            if (status.isOk()) {
+                                log.debug("Call finish success");
+                            } else {
+                                log.warn("Call finish failed", status.getDescription());
+                            }
+                        } finally {
+                            span.finish();
                         }
-                        tracer.close(span);
+
+
                         delegate().onClose(status, trailers);
                     }
                 };

@@ -11,16 +11,16 @@
 
   <artifactId>examples</artifactId>
   <packaging>pom</packaging>
-  <version>1.4.1.RELEASE</version>
 
   <modules>
     <module>grpc-lib</module>
     <module>local-grpc-client</module>
     <module>local-grpc-server</module>
     <module>cloud-eureka-server</module>
-    <module>cloud-grpc-client</module>
-    <module>cloud-grpc-server</module>
-    <module>cloud-zipkin-server</module>
+    <module>cloud-eureka-grpc-client</module>
+    <module>cloud-eureka-grpc-server</module>
+    <module>cloud-consul-grpc-server</module>
+    <module>cloud-consul-grpc-client</module>
   </modules>
 
   <dependencyManagement>
@@ -78,12 +78,20 @@
         <version>${grpc.version}</version>
       </dependency>
       <dependency>
-        <groupId>com.google.guava</groupId>
-        <artifactId>guava</artifactId>
-        <version>22.0</version>
+        <groupId>io.netty</groupId>
+        <artifactId>netty-common</artifactId>
+        <version>${netty.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>1.2.1</version>
+    </dependency>
+  </dependencies>
+
 </project>
 
 

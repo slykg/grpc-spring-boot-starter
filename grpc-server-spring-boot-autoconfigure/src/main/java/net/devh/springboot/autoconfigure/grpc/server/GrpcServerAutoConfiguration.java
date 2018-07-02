@@ -4,7 +4,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.cloud.sleuth.Tracer;
+import brave.Tracer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -73,7 +73,7 @@ public class GrpcServerAutoConfiguration {
             return new GlobalServerInterceptorConfigurerAdapter() {
                 @Override
                 public void addServerInterceptors(GlobalServerInterceptorRegistry registry) {
-                    registry.addServerInterceptors(new TraceServerInterceptor(tracer, new MetadataExtractor()));
+                    registry.addServerInterceptors(new TraceServerInterceptor(tracer));
                 }
             };
         }

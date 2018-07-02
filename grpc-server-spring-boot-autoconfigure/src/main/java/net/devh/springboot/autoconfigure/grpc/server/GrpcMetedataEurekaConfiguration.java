@@ -3,6 +3,7 @@ package net.devh.springboot.autoconfigure.grpc.server;
 import com.netflix.appinfo.EurekaInstanceConfig;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +18,7 @@ import javax.annotation.PostConstruct;
 @Configuration
 @EnableConfigurationProperties
 @ConditionalOnBean(EurekaInstanceConfig.class)
+@AutoConfigureAfter(name = "org.springframework.cloud.netflix.eureka.EurekaClientAutoConfiguration")
 public class GrpcMetedataEurekaConfiguration {
 
     @Autowired
@@ -27,6 +29,6 @@ public class GrpcMetedataEurekaConfiguration {
 
     @PostConstruct
     public void init() {
-        this.instance.getMetadataMap().put("gRPC", String.valueOf(grpcProperties.getPort()));
+        this.instance.getMetadataMap().put("grpc-port", String.valueOf(grpcProperties.getPort()));
     }
 }

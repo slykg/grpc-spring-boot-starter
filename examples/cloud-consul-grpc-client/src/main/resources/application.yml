@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: cloud-consul-grpc-client
+  sleuth:
+    sampler:
+      probability: 1.0

@@ -116,13 +116,13 @@ public class DiscoveryClientNameResolver extends NameResolver {
                     List<EquivalentAddressGroup> equivalentAddressGroups = Lists.newArrayList();
                     for (ServiceInstance serviceInstance : serviceInstanceList) {
                         Map<String, String> metadata = serviceInstance.getMetadata();
-                        if (metadata.get("gRPC") != null) {
-                            Integer port = Integer.valueOf(metadata.get("gRPC"));
-                            log.info("Found gRPC server {} {}:{}", name, serviceInstance.getHost(), port);
+                        if (metadata.get("grpc-port") != null) {
+                            Integer port = Integer.valueOf(metadata.get("grpc-port"));
+                            log.info("Found grpc server {} {}:{}", name, serviceInstance.getHost(), port);
                             EquivalentAddressGroup addressGroup = new EquivalentAddressGroup(new InetSocketAddress(serviceInstance.getHost(), port), Attributes.EMPTY);
                             equivalentAddressGroups.add(addressGroup);
                         } else {
-                            log.error("Can not found gRPC server {}", name);
+                            log.error("Can not found grpc server {}", name);
                         }
                     }
                     savedListener.onAddresses(equivalentAddressGroups, Attributes.EMPTY);
